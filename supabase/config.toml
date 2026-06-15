@@ -1,0 +1,67 @@
+# Supabase CLI configuration for local development.
+# Start everything with:  npm run dev:local   (needs Docker running)
+# Docs: https://supabase.com/docs/guides/cli/config
+project_id = "jr-firm-portal"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+# Apply supabase/seed.sql after migrations on `supabase start` / `db reset`.
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[studio]
+enabled = true
+port = 54323
+# Supabase Studio (table editor, SQL editor): http://localhost:54323
+
+# Captures all outgoing email locally (incl. auth confirmation links) so you can
+# test flows without a real mail provider: http://localhost:54324
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "15MiB"
+
+# The private documents bucket is also created by migration 0002; declaring it
+# here makes it exist immediately on a fresh `supabase start`.
+[storage.buckets.client-documents]
+public = false
+file_size_limit = "15MiB"
+allowed_mime_types = [
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+]
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000", "http://localhost:3000/reset-password"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+enable_signup = true
+minimum_password_length = 8
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = false
+# Local convenience: let sign-ups log in immediately. Turn ON for production.
+enable_confirmations = false
+
+[analytics]
+enabled = false
