@@ -8,3 +8,5 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# redeploy nudge (repo made public)
