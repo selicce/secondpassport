@@ -18,30 +18,34 @@ export function StatCard({
   href?: string;
   tone?: "default" | "warning" | "danger" | "success";
 }) {
-  const accent =
-    tone === "warning"
-      ? "text-warning"
-      : tone === "danger"
-        ? "text-destructive"
-        : tone === "success"
-          ? "text-success"
-          : "text-primary";
+  const toneStyles = {
+    default: { chip: "bg-primary/10 text-primary ring-primary/15", bar: "from-primary/60 to-gold" },
+    warning: { chip: "bg-warning/10 text-warning ring-warning/15", bar: "from-warning/60 to-warning" },
+    danger: { chip: "bg-destructive/10 text-destructive ring-destructive/15", bar: "from-destructive/60 to-destructive" },
+    success: { chip: "bg-success/10 text-success ring-success/15", bar: "from-success/60 to-success" },
+  }[tone];
 
   const inner = (
-    <Card className={cn("p-5 transition-shadow", href && "hover:shadow-elevated")}>
+    <Card className={cn("relative overflow-hidden p-5", href && "card-lift")}>
+      {/* thin accent rail along the top */}
+      <span className={cn("pointer-events-none absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r opacity-80", toneStyles.bar)} />
       <div className="flex items-start justify-between gap-3">
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-          <p className="font-serif text-2xl font-semibold tabular-nums">{value}</p>
+          <p className="font-serif text-3xl font-semibold leading-none tabular-nums">{value}</p>
           {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
         </div>
-        {icon && <div className={cn("rounded-md bg-muted p-2", accent)}>{icon}</div>}
+        {icon && (
+          <div className={cn("grid size-10 shrink-0 place-items-center rounded-xl ring-1 [&_svg]:size-5", toneStyles.chip)}>
+            {icon}
+          </div>
+        )}
       </div>
     </Card>
   );
 
   return href ? (
-    <Link href={href} className="block focus-ring rounded-lg">
+    <Link href={href} className="block rounded-lg focus-ring">
       {inner}
     </Link>
   ) : (
