@@ -1,0 +1,10 @@
+# Repo root: jr-firm-portal/netlify.toml
+# The build command applies the one-line table-name reconciliation automatically
+# (TABLES.cases "Cases" -> "Portal Cases") so no source edit is needed, then builds.
+
+[build]
+  command = "sed -i 's/cases: \"Cases\"/cases: \"Portal Cases\"/' src/lib/data/airtable.ts && npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

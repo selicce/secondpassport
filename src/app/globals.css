@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * JR & Firm design tokens.
+ * Light theme is the default (clean white, executive). Dark theme = deep navy.
+ * HSL channels only (no commas) so Tailwind's hsl(var(--x)) composition works.
+ */
+@layer base {
+  :root {
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-serif: "Playfair Display", Georgia, serif;
+
+    --background: 210 40% 99%;
+    --foreground: 215 38% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 38% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 38% 14%;
+
+    /* Deep corporate navy */
+    --primary: 213 47% 17%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 213 24% 95%;
+    --secondary-foreground: 213 40% 20%;
+
+    --muted: 214 24% 96%;
+    --muted-foreground: 215 16% 42%;
+
+    --accent: 213 28% 93%;
+    --accent-foreground: 213 40% 20%;
+
+    /* Warm gold — used sparingly for emphasis & brand marks */
+    --gold: 38 46% 50%;
+    --gold-foreground: 40 60% 97%;
+
+    --destructive: 0 65% 46%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 42% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 33 88% 45%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 214 20% 89%;
+    --input: 214 20% 86%;
+    --ring: 213 47% 27%;
+
+    --sidebar: 213 47% 13%;
+    --sidebar-foreground: 213 24% 82%;
+    --sidebar-accent: 38 46% 55%;
+    --sidebar-border: 213 38% 22%;
+
+    --radius: 0.6rem;
+  }
+
+  .dark {
+    --background: 215 40% 9%;
+    --foreground: 210 30% 92%;
+
+    --card: 215 38% 12%;
+    --card-foreground: 210 30% 92%;
+
+    --popover: 215 38% 12%;
+    --popover-foreground: 210 30% 92%;
+
+    --primary: 210 40% 96%;
+    --primary-foreground: 213 47% 14%;
+
+    --secondary: 214 28% 18%;
+    --secondary-foreground: 210 30% 92%;
+
+    --muted: 214 28% 17%;
+    --muted-foreground: 214 16% 62%;
+
+    --accent: 214 28% 20%;
+    --accent-foreground: 210 30% 92%;
+
+    --gold: 38 50% 56%;
+    --gold-foreground: 215 40% 10%;
+
+    --destructive: 0 62% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 38% 44%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 33 84% 52%;
+    --warning-foreground: 215 40% 10%;
+
+    --border: 214 24% 22%;
+    --input: 214 24% 24%;
+    --ring: 210 40% 70%;
+
+    --sidebar: 216 44% 8%;
+    --sidebar-foreground: 213 22% 76%;
+    --sidebar-accent: 38 50% 58%;
+    --sidebar-border: 214 30% 18%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  /* Subtle premium texture for hero/auth surfaces */
+  .surface-navy {
+    background:
+      radial-gradient(120% 120% at 100% 0%, hsl(213 47% 22%) 0%, hsl(213 47% 14%) 45%, hsl(216 48% 9%) 100%);
+  }
+  .hairline {
+    @apply border-b border-border;
+  }
+  .focus-ring {
+    @apply outline-none ring-offset-2 ring-offset-background focus-visible:ring-2 focus-visible:ring-ring;
+  }
+}
+
+/* Thin, restrained scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--border));
+  border-radius: 999px;
+}
